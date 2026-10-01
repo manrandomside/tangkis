@@ -1,6 +1,10 @@
-# Tangkis
+<p align="center">
+  <img src="docs/brand/tangkis-logo.svg" alt="Logo Tangkis" width="120">
+</p>
 
-**Tangkis penipuan sebelum terjadi.**
+<h1 align="center">Tangkis</h1>
+
+<p align="center"><b>Tangkis penipuan sebelum terjadi.</b></p>
 
 Tangkis adalah aplikasi Android untuk mendeteksi pesan penipuan dari SMS, WhatsApp, maupun email. Pengguna cukup menempelkan isi pesan, lalu aplikasi menampilkan kategori **normal**, **promo**, atau **penipuan** beserta tingkat keyakinan, tanda bahaya yang ditemukan, dan saran tindakan. Seluruh proses berjalan di dalam perangkat tanpa koneksi internet, sehingga isi pesan tidak pernah keluar dari HP.
 
@@ -43,7 +47,7 @@ Tangkis adalah aplikasi Android untuk mendeteksi pesan penipuan dari SMS, WhatsA
 tangkis/
 ├── android/   Aplikasi Android (buka folder ini di Android Studio)
 ├── ml/        Notebook, dataset, dan model untuk tim AI
-└── docs/      Dokumen requirement dan lisensi pihak ketiga
+└── docs/      Dokumen requirement, aset logo, dan lisensi pihak ketiga
 ```
 
 ## Menjalankan aplikasi
