@@ -1,5 +1,6 @@
 package com.kelompok.tangkis.ui.layar
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,7 +31,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -77,12 +77,11 @@ fun LayarKunci(onTerbuka: () -> Unit) {
                 .padding(horizontal = 24.dp, vertical = 16.dp),
         ) {
             Spacer(Modifier.height(32.dp))
-            Box(
-                Modifier.size(60.dp).clip(RoundedCornerShape(20.dp)).background(Tinta),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(painterResource(R.drawable.ic_verified_user), contentDescription = null, tint = Lime, modifier = Modifier.size(30.dp))
-            }
+            Image(
+                painterResource(R.drawable.logo_tangkis),
+                contentDescription = "Logo Tangkis",
+                modifier = Modifier.size(64.dp),
+            )
             Spacer(Modifier.height(24.dp))
             Text(
                 buildAnnotatedString {
