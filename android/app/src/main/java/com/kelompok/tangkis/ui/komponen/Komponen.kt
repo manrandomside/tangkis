@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
@@ -148,15 +149,18 @@ enum class Tab(val label: String, @param:DrawableRes val ikon: Int) {
     ATUR("Atur", R.drawable.ic_settings),
 }
 
+// Navigasi melayang di atas konten dengan bayangan halus
 @Composable
 fun NavigasiBawah(aktif: Tab, onPilih: (Tab) -> Unit, modifier: Modifier = Modifier) {
+    val bentuk = RoundedCornerShape(26.dp)
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-            .clip(RoundedCornerShape(24.dp))
+            .padding(horizontal = 20.dp, vertical = 12.dp)
+            .shadow(16.dp, bentuk, ambientColor = Tinta.copy(alpha = 0.12f), spotColor = Tinta.copy(alpha = 0.18f))
+            .clip(bentuk)
             .background(Permukaan)
-            .border(1.dp, Garis, RoundedCornerShape(24.dp))
+            .border(1.dp, Garis, bentuk)
             .padding(6.dp),
     ) {
         Tab.entries.forEach { tab ->
