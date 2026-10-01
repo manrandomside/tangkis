@@ -1,6 +1,5 @@
 package com.kelompok.tangkis.ui.layar
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -44,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import com.kelompok.tangkis.R
 import com.kelompok.tangkis.ui.komponen.Blob
 import com.kelompok.tangkis.ui.komponen.TombolUtama
+import com.kelompok.tangkis.ui.komponen.Wordmark
 import com.kelompok.tangkis.ui.theme.AmanLembut
 import com.kelompok.tangkis.ui.theme.TangkisTheme
 import com.kelompok.tangkis.ui.theme.GarisTegas
@@ -77,11 +77,7 @@ fun LayarKunci(onTerbuka: () -> Unit) {
                 .padding(horizontal = 24.dp, vertical = 16.dp),
         ) {
             Spacer(Modifier.height(32.dp))
-            Image(
-                painterResource(R.drawable.logo_tangkis),
-                contentDescription = "Logo Tangkis",
-                modifier = Modifier.size(64.dp),
-            )
+            Wordmark(ukuranLogo = 52.dp)
             Spacer(Modifier.height(24.dp))
             Text(
                 buildAnnotatedString {
