@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kelompok.tangkis.data.ContohData
 import com.kelompok.tangkis.data.HasilDeteksi
@@ -26,6 +27,7 @@ import com.kelompok.tangkis.ui.layar.LayarMemindai
 import com.kelompok.tangkis.ui.layar.LayarPengaturan
 import com.kelompok.tangkis.ui.layar.LayarRiwayat
 import com.kelompok.tangkis.ui.theme.Latar
+import com.kelompok.tangkis.ui.theme.TangkisTheme
 
 sealed interface Layar {
     data object Kunci : Layar
@@ -38,8 +40,8 @@ private val RuangNavigasi = 100.dp
 
 // Navigasi sederhana berbasis tumpukan layar, tanpa library tambahan
 @Composable
-fun TangkisApp() {
-    val tumpukan = remember { mutableStateListOf<Layar>(Layar.Kunci) }
+fun TangkisApp(layarAwal: Layar = Layar.Kunci) {
+    val tumpukan = remember { mutableStateListOf(layarAwal) }
     val riwayat = remember { mutableStateListOf<HasilDeteksi>().apply { addAll(ContohData.riwayat()) } }
 
     fun buka(layar: Layar) = tumpukan.add(layar)
@@ -87,4 +89,22 @@ fun TangkisApp() {
             },
         )
     }
+}
+
+@Preview(name = "Aplikasi - Cek", showSystemUi = true)
+@Composable
+private fun PratinjauAplikasiCek() {
+    TangkisTheme { TangkisApp(Layar.Utama(Tab.CEK)) }
+}
+
+@Preview(name = "Aplikasi - Riwayat", showSystemUi = true)
+@Composable
+private fun PratinjauAplikasiRiwayat() {
+    TangkisTheme { TangkisApp(Layar.Utama(Tab.RIWAYAT)) }
+}
+
+@Preview(name = "Aplikasi - Atur", showSystemUi = true)
+@Composable
+private fun PratinjauAplikasiAtur() {
+    TangkisTheme { TangkisApp(Layar.Utama(Tab.ATUR)) }
 }
