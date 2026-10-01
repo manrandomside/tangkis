@@ -32,7 +32,9 @@ import com.kelompok.tangkis.R
 import com.kelompok.tangkis.data.Kategori
 import com.kelompok.tangkis.ui.theme.Garis
 import com.kelompok.tangkis.ui.theme.Lime
+import com.kelompok.tangkis.ui.theme.LimeLembut
 import com.kelompok.tangkis.ui.theme.Permukaan
+import com.kelompok.tangkis.ui.theme.TeksSekunder
 import com.kelompok.tangkis.ui.theme.Tinta
 
 // Bentuk bulat pastel dekoratif di belakang konten layar
@@ -137,5 +139,44 @@ fun TombolKembali(onClick: () -> Unit) {
         contentAlignment = Alignment.Center,
     ) {
         Icon(painterResource(R.drawable.ic_arrow_back), contentDescription = "Kembali", tint = Tinta)
+    }
+}
+
+enum class Tab(val label: String, @param:DrawableRes val ikon: Int) {
+    CEK("Cek", R.drawable.ic_radar),
+    RIWAYAT("Riwayat", R.drawable.ic_history),
+    ATUR("Atur", R.drawable.ic_settings),
+}
+
+@Composable
+fun NavigasiBawah(aktif: Tab, onPilih: (Tab) -> Unit, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .clip(RoundedCornerShape(24.dp))
+            .background(Permukaan)
+            .border(1.dp, Garis, RoundedCornerShape(24.dp))
+            .padding(6.dp),
+    ) {
+        Tab.entries.forEach { tab ->
+            val dipilih = tab == aktif
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .clip(RoundedCornerShape(18.dp))
+                    .background(if (dipilih) LimeLembut else Permukaan)
+                    .clickable { onPilih(tab) }
+                    .padding(vertical = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Icon(painterResource(tab.ikon), contentDescription = null, tint = if (dipilih) Tinta else TeksSekunder)
+                Text(
+                    tab.label,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = if (dipilih) Tinta else TeksSekunder,
+                )
+            }
+        }
     }
 }
