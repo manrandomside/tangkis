@@ -62,7 +62,7 @@ fun LayarKunci(onTerbuka: () -> Unit) {
 
     // Verifikasi hash PBKDF2 ditambahkan pada tahap implementasi keamanan
     val buka = {
-        if (kataSandi.isBlank()) galat = "Kata sandi belum diisi" else onTerbuka()
+        if (kataSandi.isBlank()) galat = "Kata sandinya belum diisi nih" else onTerbuka()
     }
 
     Box(Modifier.fillMaxSize().background(Latar)) {
@@ -81,15 +81,15 @@ fun LayarKunci(onTerbuka: () -> Unit) {
             Spacer(Modifier.height(24.dp))
             Text(
                 buildAnnotatedString {
-                    append("Cek dulu,\nbaru ")
-                    withStyle(SpanStyle(background = Lime)) { append(" percaya. ") }
+                    append("Penipu makin kreatif,\nkamu makin ")
+                    withStyle(SpanStyle(background = Lime)) { append(" waspada. ") }
                 },
                 style = MaterialTheme.typography.displaySmall,
                 color = Tinta,
             )
             Spacer(Modifier.height(12.dp))
             Text(
-                "Masukkan kata sandi untuk membuka Tangkis.",
+                "Masukkan kata sandi dulu, biar cuma kamu yang bisa buka riwayat pesanmu.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = TeksSekunder,
             )
@@ -130,7 +130,7 @@ fun LayarKunci(onTerbuka: () -> Unit) {
                 ),
             )
             Spacer(Modifier.height(12.dp))
-            TombolUtama("Buka aplikasi", R.drawable.ic_arrow_forward, onClick = buka)
+            TombolUtama("Buka Tangkis", R.drawable.ic_arrow_forward, onClick = buka)
             Spacer(Modifier.height(16.dp))
             Row(
                 Modifier.fillMaxWidth(),
@@ -140,7 +140,7 @@ fun LayarKunci(onTerbuka: () -> Unit) {
                 Icon(painterResource(R.drawable.ic_wifi_off), contentDescription = null, tint = TeksSekunder, modifier = Modifier.size(16.dp))
                 Spacer(Modifier.width(6.dp))
                 Text(
-                    "Offline, data tetap di HP ini",
+                    "Offline, pesanmu nggak ke mana-mana",
                     style = MaterialTheme.typography.labelSmall,
                     color = TeksSekunder,
                 )
