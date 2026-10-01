@@ -31,7 +31,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,8 +46,10 @@ import com.kelompok.tangkis.ui.komponen.Blob
 import com.kelompok.tangkis.ui.komponen.Kartu
 import com.kelompok.tangkis.ui.komponen.Pil
 import com.kelompok.tangkis.ui.komponen.TombolUtama
+import com.kelompok.tangkis.ui.komponen.Wordmark
 import com.kelompok.tangkis.ui.theme.TangkisTheme
 import com.kelompok.tangkis.ui.theme.Latar
+import com.kelompok.tangkis.ui.theme.Lime
 import com.kelompok.tangkis.ui.theme.LimeLembut
 import com.kelompok.tangkis.ui.theme.LimeTua
 import com.kelompok.tangkis.ui.theme.PenipuanUtama
@@ -81,11 +86,18 @@ fun LayarBeranda(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("Halo", style = MaterialTheme.typography.titleMedium, color = TeksSekunder)
+                Wordmark(ukuranLogo = 36.dp)
                 Pil("Offline", ikon = R.drawable.ic_wifi_off, warnaTeks = LimeTua)
             }
-            Spacer(Modifier.height(8.dp))
-            Text("Ragu sama\npesan ini?", style = MaterialTheme.typography.headlineMedium, color = Tinta)
+            Spacer(Modifier.height(20.dp))
+            Text(
+                buildAnnotatedString {
+                    append("Ragu sama\npesan ini?\n")
+                    withStyle(SpanStyle(background = Lime)) { append(" Tangkisin aja! ") }
+                },
+                style = MaterialTheme.typography.headlineMedium,
+                color = Tinta,
+            )
             Spacer(Modifier.height(16.dp))
 
             Kartu(Modifier.fillMaxWidth()) {
@@ -96,7 +108,7 @@ fun LayarBeranda(
                         galat = null
                     },
                     modifier = Modifier.fillMaxWidth().height(130.dp),
-                    placeholder = { Text("Tempel pesan SMS, WhatsApp, atau email di sini", color = TeksSamar) },
+                    placeholder = { Text("Tempel pesan yang bikin curiga di sini. SMS, WhatsApp, atau email, semua bisa.", color = TeksSamar) },
                     textStyle = MaterialTheme.typography.bodyMedium,
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Color.Transparent,
@@ -140,18 +152,18 @@ fun LayarBeranda(
                 )
             }
             Spacer(Modifier.height(12.dp))
-            TombolUtama("Pindai pesan", R.drawable.ic_radar) {
-                if (pesan.isBlank()) galat = "Tempel atau ketik pesan terlebih dahulu" else onPindai(pesan.trim())
+            TombolUtama("Tangkisin sekarang", R.drawable.ic_radar) {
+                if (pesan.isBlank()) galat = "Pesannya masih kosong, tempel dulu ya" else onPindai(pesan.trim())
             }
 
             Spacer(Modifier.height(24.dp))
-            Text("Ringkasan riwayat", style = MaterialTheme.typography.titleMedium, color = Tinta)
+            Text("Rekap tangkisanmu", style = MaterialTheme.typography.titleMedium, color = Tinta)
             Spacer(Modifier.height(10.dp))
             Row(Modifier.fillMaxWidth().height(180.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 KartuStatistik(
                     kategori = Kategori.PENIPUAN,
                     jumlah = jumlah[Kategori.PENIPUAN] ?: 0,
-                    keterangan = "penipuan ditemukan",
+                    keterangan = "penipuan tertangkis",
                     besar = true,
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                 )
