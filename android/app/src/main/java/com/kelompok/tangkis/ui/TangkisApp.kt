@@ -70,7 +70,13 @@ fun TangkisApp(layarAwal: Layar = Layar.Kunci) {
             when (layar.tab) {
                 Tab.CEK -> LayarBeranda(riwayat, onPindai = { buka(Layar.Memindai(it)) }, contentPadding = padding)
                 Tab.RIWAYAT -> LayarRiwayat(riwayat, onPilih = { buka(Layar.Hasil(it)) }, contentPadding = padding)
-                Tab.ATUR -> LayarPengaturan(contentPadding = padding)
+                Tab.ATUR -> LayarPengaturan(
+                    jumlahRiwayat = riwayat.size,
+                    onGantiSandi = { buka(Layar.GantiSandi) },
+                    onHapusRiwayat = { riwayat.clear() },
+                    onTentang = { buka(Layar.Tentang) },
+                    contentPadding = padding,
+                )
             }
             NavigasiBawah(
                 aktif = layar.tab,
