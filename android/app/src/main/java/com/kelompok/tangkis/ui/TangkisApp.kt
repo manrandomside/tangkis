@@ -21,6 +21,7 @@ import com.kelompok.tangkis.data.HasilDeteksi
 import com.kelompok.tangkis.ui.komponen.NavigasiBawah
 import com.kelompok.tangkis.ui.komponen.Tab
 import com.kelompok.tangkis.ui.layar.LayarBeranda
+import com.kelompok.tangkis.ui.layar.LayarGantiSandi
 import com.kelompok.tangkis.ui.layar.LayarHasil
 import com.kelompok.tangkis.ui.layar.LayarKunci
 import com.kelompok.tangkis.ui.layar.LayarMemindai
@@ -36,6 +37,7 @@ sealed interface Layar {
     data class Memindai(val pesan: String) : Layar
     data class Hasil(val hasil: HasilDeteksi) : Layar
     data object Tentang : Layar
+    data object GantiSandi : Layar
 }
 
 private val RuangNavigasi = 100.dp
@@ -92,6 +94,8 @@ fun TangkisApp(layarAwal: Layar = Layar.Kunci) {
         )
 
         Layar.Tentang -> LayarTentang(onKembali = { kembali() })
+
+        Layar.GantiSandi -> LayarGantiSandi(onKembali = { kembali() })
     }
 }
 
