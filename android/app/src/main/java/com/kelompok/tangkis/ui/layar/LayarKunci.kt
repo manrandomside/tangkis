@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kelompok.tangkis.R
 import com.kelompok.tangkis.ui.komponen.Blob
+import com.kelompok.tangkis.ui.komponen.DialogKonfirmasi
 import com.kelompok.tangkis.ui.komponen.KolomKataSandi
 import com.kelompok.tangkis.ui.komponen.TombolUtama
 import com.kelompok.tangkis.ui.komponen.Wordmark
@@ -44,9 +46,10 @@ import com.kelompok.tangkis.ui.theme.TeksSekunder
 import com.kelompok.tangkis.ui.theme.Tinta
 
 @Composable
-fun LayarKunci(onTerbuka: () -> Unit) {
+fun LayarKunci(onTerbuka: () -> Unit, onReset: () -> Unit) {
     var kataSandi by remember { mutableStateOf("") }
     var galat by remember { mutableStateOf<String?>(null) }
+    var tanyaReset by remember { mutableStateOf(false) }
 
     // Verifikasi hash PBKDF2 ditambahkan pada tahap implementasi keamanan
     val buka = {
@@ -96,7 +99,9 @@ fun LayarKunci(onTerbuka: () -> Unit) {
             )
             Spacer(Modifier.height(12.dp))
             TombolUtama("Buka Tangkis", R.drawable.ic_arrow_forward, onClick = buka)
-            Spacer(Modifier.height(16.dp))
+            TextButton(onClick = { tanyaReset = true }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                Text("Lupa kata sandi?", style = MaterialTheme.typography.labelLarge, color = Tinta)
+            }
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
@@ -112,10 +117,28 @@ fun LayarKunci(onTerbuka: () -> Unit) {
             }
         }
     }
+
+    // Kata sandi tidak bisa dipulihkan karena hanya hash-nya yang disimpan dan tidak ada akun online
+    if (tanyaReset) {
+        DialogKonfirmasi(
+            judul = "Lupa kata sandi?",
+            isi = "Kata sandi tidak bisa dipulihkan karena Tangkis tidak memakai akun online. " +
+                "Kamu bisa mereset aplikasi, tapi seluruh riwayat pesan akan ikut terhapus.",
+            teksKonfirmasi = "Reset aplikasi",
+            ikon = R.drawable.ic_key,
+            onKonfirmasi = {
+                onReset()
+                kataSandi = ""
+                galat = null
+                tanyaReset = false
+            },
+            onBatal = { tanyaReset = false },
+        )
+    }
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun PratinjauLayarKunci() {
-    TangkisTheme { LayarKunci(onTerbuka = {}) }
+    TangkisTheme { LayarKunci(onTerbuka = {}, onReset = {}) }
 }

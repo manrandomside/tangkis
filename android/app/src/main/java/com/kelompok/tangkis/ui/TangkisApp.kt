@@ -58,7 +58,11 @@ fun TangkisApp(layarAwal: Layar = Layar.Kunci) {
     BackHandler(enabled = tumpukan.size > 1) { kembali() }
 
     when (val layar = tumpukan.last()) {
-        Layar.Kunci -> LayarKunci(onTerbuka = { ganti(Layar.Utama(Tab.CEK)) })
+        Layar.Kunci -> LayarKunci(
+            onTerbuka = { ganti(Layar.Utama(Tab.CEK)) },
+            // Penghapusan hash kata sandi tersimpan ditambahkan bersama implementasi PBKDF2
+            onReset = { riwayat.clear() },
+        )
 
         is Layar.Utama -> Box(Modifier.fillMaxSize().background(Latar)) {
             val sistem = WindowInsets.systemBars.asPaddingValues()
