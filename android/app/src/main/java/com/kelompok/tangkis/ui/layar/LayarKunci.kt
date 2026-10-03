@@ -14,14 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,31 +27,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kelompok.tangkis.R
 import com.kelompok.tangkis.ui.komponen.Blob
+import com.kelompok.tangkis.ui.komponen.KolomKataSandi
 import com.kelompok.tangkis.ui.komponen.TombolUtama
 import com.kelompok.tangkis.ui.komponen.Wordmark
 import com.kelompok.tangkis.ui.theme.AmanLembut
-import com.kelompok.tangkis.ui.theme.TangkisTheme
-import com.kelompok.tangkis.ui.theme.GarisTegas
 import com.kelompok.tangkis.ui.theme.Latar
 import com.kelompok.tangkis.ui.theme.Lime
 import com.kelompok.tangkis.ui.theme.LimeLembut
-import com.kelompok.tangkis.ui.theme.Permukaan
+import com.kelompok.tangkis.ui.theme.TangkisTheme
 import com.kelompok.tangkis.ui.theme.TeksSekunder
 import com.kelompok.tangkis.ui.theme.Tinta
 
 @Composable
 fun LayarKunci(onTerbuka: () -> Unit) {
     var kataSandi by remember { mutableStateOf("") }
-    var terlihat by remember { mutableStateOf(false) }
     var galat by remember { mutableStateOf<String?>(null) }
 
     // Verifikasi hash PBKDF2 ditambahkan pada tahap implementasi keamanan
@@ -96,38 +84,15 @@ fun LayarKunci(onTerbuka: () -> Unit) {
 
             Spacer(Modifier.weight(1f))
 
-            Text("Kata sandi", style = MaterialTheme.typography.labelMedium, color = TeksSekunder)
-            Spacer(Modifier.height(6.dp))
-            OutlinedTextField(
-                value = kataSandi,
-                onValueChange = {
+            KolomKataSandi(
+                label = "Kata sandi",
+                nilai = kataSandi,
+                onNilaiBerubah = {
                     kataSandi = it
                     galat = null
                 },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                isError = galat != null,
-                supportingText = galat?.let { pesan -> { Text(pesan) } },
-                visualTransformation = if (terlihat) VisualTransformation.None else PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
-                keyboardActions = KeyboardActions(onDone = { buka() }),
-                trailingIcon = {
-                    IconButton(onClick = { terlihat = !terlihat }) {
-                        Icon(
-                            painterResource(if (terlihat) R.drawable.ic_visibility_off else R.drawable.ic_visibility),
-                            contentDescription = if (terlihat) "Sembunyikan kata sandi" else "Tampilkan kata sandi",
-                            tint = TeksSekunder,
-                        )
-                    }
-                },
-                shape = RoundedCornerShape(18.dp),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Tinta,
-                    unfocusedBorderColor = GarisTegas,
-                    focusedContainerColor = Permukaan,
-                    unfocusedContainerColor = Permukaan,
-                    errorContainerColor = Permukaan,
-                ),
+                galat = galat,
+                onSelesai = buka,
             )
             Spacer(Modifier.height(12.dp))
             TombolUtama("Buka Tangkis", R.drawable.ic_arrow_forward, onClick = buka)
