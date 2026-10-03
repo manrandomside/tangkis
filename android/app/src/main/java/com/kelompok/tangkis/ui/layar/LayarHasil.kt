@@ -69,11 +69,11 @@ private fun saran(kategori: Kategori) = when (kategori) {
     Kategori.PROMO -> listOf(
         "Pastikan pengirimnya akun resmi",
         "Cek kebenaran promo di aplikasi atau situs resmi",
-        "Abaikan bila tidak tertarik",
+        "Kalau nggak tertarik, abaikan saja",
     )
     Kategori.NORMAL -> listOf(
-        "Pesan ini tampak wajar",
-        "Tetap waspada bila diminta data pribadi atau uang",
+        "Pesan ini kelihatannya wajar",
+        "Tetap waspada kalau diminta data pribadi atau uang",
     )
 }
 
@@ -118,7 +118,7 @@ fun LayarHasil(hasil: HasilDeteksi, onKembali: () -> Unit, onCekLagi: () -> Unit
 
             if (hasil.tandaBahaya.isNotEmpty()) {
                 Spacer(Modifier.height(24.dp))
-                Judul("Kenapa?")
+                Judul("Kenapa dicurigai?")
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     hasil.tandaBahaya.forEach { tanda ->
                         Pil(tanda.label, ikon = tanda.ikon, warnaTeks = kategori.warnaTua, warnaGaris = kategori.warnaLembut)
@@ -159,14 +159,14 @@ fun LayarHasil(hasil: HasilDeteksi, onKembali: () -> Unit, onCekLagi: () -> Unit
 
             Spacer(Modifier.height(12.dp))
             Text(
-                "Hasil ini perkiraan model AI dan bisa keliru.",
+                "Ini perkiraan AI, tetap pakai nalarmu ya.",
                 style = MaterialTheme.typography.labelSmall,
                 color = TeksSamar,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
             )
             Spacer(Modifier.height(16.dp))
-            TombolUtama("Cek pesan lain", R.drawable.ic_radar, onClick = onCekLagi)
+            TombolUtama("Tangkis pesan lain", R.drawable.ic_radar, onClick = onCekLagi)
         }
     }
 }

@@ -70,7 +70,7 @@ fun LayarRiwayat(
             Column {
                 Text("Riwayat", style = MaterialTheme.typography.headlineMedium, color = Tinta)
                 Text(
-                    "${riwayat.size} pesan sudah dicek",
+                    "${riwayat.size} pesan sudah kamu cek",
                     style = MaterialTheme.typography.bodyMedium,
                     color = TeksSekunder,
                 )
@@ -93,7 +93,7 @@ fun LayarRiwayat(
         if (tampil.isEmpty()) {
             item {
                 Text(
-                    "Belum ada pesan di kategori ini.",
+                    "Belum ada pesan di sini. Yuk cek pesan pertamamu!",
                     style = MaterialTheme.typography.bodyMedium,
                     color = TeksSamar,
                     modifier = Modifier.padding(top = 24.dp),

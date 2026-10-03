@@ -92,7 +92,7 @@ fun LayarMemindai(pesan: String, onSelesai: (HasilDeteksi) -> Unit) {
             Radar(Modifier.size(240.dp))
             Spacer(Modifier.height(36.dp))
             Text(
-                "Sebentar, AI sedang\nmembaca pesanmu",
+                "Sebentar ya,\nAI lagi baca pesanmu",
                 style = MaterialTheme.typography.headlineSmall,
                 color = Tinta,
                 textAlign = TextAlign.Center,
